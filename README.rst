@@ -2,7 +2,7 @@
 vLab Proxy
 ##########
 
-Unifies all the different vLab services behind a single URL. `HAProxy <http://www.haproxy.org>`_
+Unifies all the different vLab services behind a single URL. `NGINX <https://www.nginx.com/>`_
 is used in this service to:
 
 - Perform layer-7 routing
@@ -15,9 +15,11 @@ is used in this service to:
    Make sure to replace the TLS certificate when running in production!
 
 To make life easier while testing, the docker image contains a self-signed TLS
-certificate. In production, you must replace the self-signed cert. The cert must
-be in `PEM <https://en.wikipedia.org/wiki/Privacy-enhanced_Eletronic_Mail>`_
-format. The TLS cert is located at ``/etc/vlab/proxy/server.pem``.
+certificate. In production, you **must** replace the self-signed cert and key.
+The key and cert are expected to be at the following paths with the following names:
+
+- Key : /etc/ssl/server.key
+- Cert: /etc/ssl/server.crt
 
 
 *********
@@ -37,4 +39,5 @@ Here's an example docker-compose file, that will use your configured TLS cert:
        image:
          willnx/vlab-proxy
        volume:
-         - /path/to/proxy/server.pem:/etc/vlab/proxy/server.pem
+         - /path/to/proxy/my.vlab.crt:/etc/ssl/server.crt
+         - /path/to/proxy/my.vlab.key:/etc/ssl/server.key
