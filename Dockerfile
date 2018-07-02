@@ -1,6 +1,3 @@
-FROM haproxy:1.8.8-alpine
-COPY haproxy.cfg /usr/local/etc/haproxy/haproxy.cfg
-RUN mkdir -p /etc/vlab/proxy
-COPY server.pem /etc/vlab/proxy/server.pem
-COPY *.http /etc/vlab/proxy/
-RUN apk update && apk upgrade
+FROM nginx:1.15.0-alpine
+COPY nginx.conf /etc/nginx/nginx.conf
+COPY server.* /etc/ssl/
