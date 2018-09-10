@@ -4,4 +4,4 @@ clean:
 	-docker network prune -f
 
 images: clean
-	sudo docker build -t willnx/vlab-proxy .
+	docker build -t willnx/vlab-proxy .
