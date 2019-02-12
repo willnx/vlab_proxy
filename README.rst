@@ -1,3 +1,6 @@
+.. image:: https://travis-ci.org/willnx/vlab_proxy.svg?branch=master
+   :target: https://travis-ci.org/willnx/vlab_proxy
+
 ##########
 vLab Proxy
 ##########
