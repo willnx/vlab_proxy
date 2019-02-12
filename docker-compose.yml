@@ -1,0 +1,16 @@
+version: '3'
+services:
+  proxy:
+    image:
+      willnx/vlab-proxy
+    ports:
+      - "80:80"
+      - "443:443"
+    sysctls:
+      - net.core.somaxconn=1024
+
+  api-gateway:
+    image:
+      willnx/vlab-api-gateway
+    volumes:
+      - ./vlab_api_gateway:/usr/lib/python3.6/site-packages/vlab_api_gateway
