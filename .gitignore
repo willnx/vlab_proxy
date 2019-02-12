@@ -74,6 +74,3 @@ man/
 site-packages/
 lib-python/
 lib_pypy/
-
-#Docker stuff
-docker-compose*.yml
