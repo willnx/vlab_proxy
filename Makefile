@@ -23,4 +23,4 @@ images: build
 	docker build -f GatewayDockerfile -t willnx/vlab-api-gateway .
 
 up:
-	docker-compose -p vlabcentos up --abort-on-container-exit
+	docker-compose -p vlabApiGateway up --abort-on-container-exit

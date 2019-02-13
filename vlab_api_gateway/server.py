@@ -22,7 +22,6 @@ def application(env, start_response):
         uri=env.get('RAW_URI', '')
     token = env.get('X-Auth', None)
     host, tls, port = router.get_host(uri=uri, token=token)
-    host='137.69.150.53' # TODO - Delete this; it's a shim for local dev testing
     resp = RelayQuery(host=host,
                       method=env['REQUEST_METHOD'],
                       uri=uri,
