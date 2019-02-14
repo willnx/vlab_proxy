@@ -27,7 +27,7 @@ def application(env, start_response):
                       uri=uri,
                       headers=headers,
                       body=body,
-                      port='5000',
+                      port=port,
                       tls=tls)
     start_response(resp.status, resp.headers)
     return resp
