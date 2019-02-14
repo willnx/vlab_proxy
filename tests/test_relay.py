@@ -31,8 +31,8 @@ class TestRelay(unittest.TestCase):
                                 headers={},
                                 body=StringIO('{}'),
                                 port=5000)
-        expected = '{"error": "unable to find host None for /foo"}'
-        actual = ''.join(list(resp))
+        expected = b'{"error": "unable to find host None for /foo"}'
+        actual = b''.join(list(resp))
         self.assertEqual(expected, actual)
 
     @patch.object(relay, 'HTTPConnection')
@@ -114,6 +114,18 @@ class TestRelay(unittest.TestCase):
                                 port=5000)
 
         self.assertTrue(isinstance(resp._resp, relay.NoHostResponse))
+
+    def test_headers(self):
+        """A NoHostResponse returns the headers as a list of tuples"""
+        resp = relay.RelayQuery(host=None,
+                                uri='/foo',
+                                method='GET',
+                                headers={},
+                                body=StringIO('{}'),
+                                port=5000)
+        expected = [('Content-Type', 'application/json')]
+        actual = resp.headers
+        self.assertEqual(expected, actual)
 
 
 if __name__ == '__main__':

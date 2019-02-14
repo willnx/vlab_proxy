@@ -60,7 +60,7 @@ class RelayQuery:
             self._status =  '{} {}'.format(self._resp.status, self._resp.reason)
 
     def _handle_no_host(self, host, uri):
-        self._headers = {'Content-Type' : 'application/json'}
+        self._headers = [('Content-Type', 'application/json')]
         self._status = '404 Not Found'
         self._resp = NoHostResponse(host, uri)
 
@@ -108,7 +108,8 @@ class NoHostResponse:
     """
 
     def __init__(self, host, uri):
-        self.message = '{"error": "unable to find host %s for %s"}' % (host, uri)
+        message = '{"error": "unable to find host %s for %s"}' % (host, uri)
+        self.message = message.encode()
         self.sent_msg = False
 
     def readline(self):
