@@ -71,8 +71,9 @@ def _user_ipam_server(token):
     logger.info('Looking up IPAM server')
     try:
         header, payload, signature = token.split(b'.')
-    except (ValueError, AttributeError, TypeError):
+    except (ValueError, AttributeError, TypeError) as doh:
         # Mangled or missing JSON Web Token
+        logger.exception(doh)
         user = None
     else:
         padding_needed = len(payload) % 4
@@ -84,5 +85,6 @@ def _user_ipam_server(token):
             user = '{}.{}'.format(username, const.VLAB_FQDN)
         except ValueError:
             # bad json
+            logger.error('invalid JSON for token payload')
             user = None
     return user
