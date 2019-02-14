@@ -88,6 +88,19 @@ class TestServer(unittest.TestCase):
 
         self.assertEqual(proxied_headers, expected_headers)
 
+    @patch.object(vlab_api_gateway.server, 'router')
+    def test_x_auth_header(self, fake_router, fake_RelayQuery):
+        """``application`` pulls the JWT auth token and passes it as bytes"""
+        self.env['HTTP_X_AUTH'] = 'asdf.asdf.asdf'
+        fake_start_response = MagicMock()
+        fake_router.get_host.return_value = ('someHost', False, 5000)
+
+        vlab_api_gateway.server.application(self.env, fake_start_response)
+
+        _, call_kwargs  = fake_router.get_host.call_args
+        called_token = call_kwargs['token']
+
+        self.assertEqual(called_token, self.env['HTTP_X_AUTH'].encode())
 
 
 if __name__ == '__main__':
