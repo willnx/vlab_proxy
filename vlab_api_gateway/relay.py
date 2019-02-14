@@ -6,7 +6,10 @@ a response to the calling WSGI application.
 from socket import gaierror
 from http.client import HTTPConnection, HTTPSConnection
 
+from vlab_api_gateway.std_logger import get_logger
 from vlab_api_gateway.constants import const
+
+logger = get_logger(__name__)
 
 
 class RelayQuery:
@@ -40,6 +43,7 @@ class RelayQuery:
         self._headers = None
         self._status = None
         if host is None:
+            logger.error('No host found for {} on {}'.format(method, uri))
             self._handle_no_host(host, uri)
         else:
             self._call_upstream(host, uri, method, headers, body, port, tls)
@@ -52,7 +56,7 @@ class RelayQuery:
         try:
             self._conn.request(method=method, url=uri, body=body, headers=headers)
         except gaierror:
-            # DNS resolution failure
+            logger.error('failed to resolve DNS host {} for URI {}'.format(host, uri))
             self._handle_no_host(host, uri)
         else:
             self._resp = self._conn.getresponse()
