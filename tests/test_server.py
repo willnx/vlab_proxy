@@ -102,6 +102,19 @@ class TestServer(unittest.TestCase):
 
         self.assertEqual(called_token, self.env['HTTP_X_AUTH'].encode())
 
+    def test_passes_port(self, fake_RelayQuery):
+        """``application`` pases the correct port to RelayQuery"""
+        self.env['PATH_INFO'] = '/'
+        fake_start_response = MagicMock()
+
+        vlab_api_gateway.server.application(self.env, fake_start_response)
+
+        _, called_kwargs = fake_RelayQuery.call_args
+        port_used = called_kwargs['port']
+        port_expected = 80
+
+        self.assertEqual(port_used, port_expected)
+
 
 if __name__ == '__main__':
     unittest.main()
