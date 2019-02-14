@@ -58,6 +58,9 @@ class RelayQuery:
         except gaierror:
             logger.error('failed to resolve DNS host {} for URI {}'.format(host, uri))
             self._handle_no_host(host, uri)
+        except ConnectionRefusedError:
+            logger.error('Connection refused by host - URL {}:{}{}, TLS={}'.format(host, port, uri, tls))
+            self._handle_no_host(host, uri)
         else:
             self._resp = self._conn.getresponse()
             self._headers = self._resp.getheaders()
