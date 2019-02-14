@@ -60,15 +60,15 @@ class RelayQuery:
             self._handle_no_host(host, uri)
         except ConnectionRefusedError:
             logger.error('Connection refused by host - URL {}:{}{}, TLS={}'.format(host, port, uri, tls))
-            self._handle_no_host(host, uri)
+            self._handle_no_host(host, uri, status='502 Bad Gateway')
         else:
             self._resp = self._conn.getresponse()
             self._headers = self._resp.getheaders()
             self._status =  '{} {}'.format(self._resp.status, self._resp.reason)
 
-    def _handle_no_host(self, host, uri):
+    def _handle_no_host(self, host, uri, status='404 Not Found'):
         self._headers = [('Content-Type', 'application/json')]
-        self._status = '404 Not Found'
+        self._status = status
         self._resp = NoHostResponse(host, uri)
 
     @property

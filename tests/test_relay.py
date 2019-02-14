@@ -148,6 +148,27 @@ class TestRelay(unittest.TestCase):
 
         self.assertTrue(isinstance(resp._resp, relay.NoHostResponse))
 
+    @patch.object(relay, 'HTTPConnection')
+    def test_connection_refused_status(self, fake_HTTPConnection):
+        """Connection Refused by upstream hosts returns HTTP 502 Bad Gateway"""
+        fake_resp = MagicMock()
+        fake_resp.getheaders.return_value = {'FooHeader' : 'true'}
+        fake_conn = MagicMock()
+        fake_conn.getresponse.return_value = fake_resp
+        fake_conn.request.side_effect = [ConnectionRefusedError('testing')]
+        fake_HTTPConnection.return_value = fake_conn
+
+        resp = relay.RelayQuery(host='fooHost',
+                                uri='/foo',
+                                method='GET',
+                                headers={},
+                                body=StringIO('{}'),
+                                port=5000)
+        expected_status = '502 Bad Gateway'
+
+        self.assertEqual(resp.status, expected_status)
+
+
 
 if __name__ == '__main__':
     unittest.main()
