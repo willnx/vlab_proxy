@@ -75,3 +75,6 @@ Here's an example docker-compose file, that will use your configured TLS cert:
          willnx/vlab-api-gateway
        dns:
          - <ip of vLab server>
+       enviroment:
+         - PRODUCTION=<true/false>
+         - VLAB_FQDN=<DNS name of the vLab server>
