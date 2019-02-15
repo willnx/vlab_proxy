@@ -11,8 +11,10 @@ from vlab_api_gateway.relay import RelayQuery
 def application(env, start_response):
     """The callable function per the WSGI spec; PEP 333"""
     headers = {x[5:].replace('_', '-'):y for x, y in env.items() if x.startswith('HTTP_')}
-    headers['Content-Type'] = env.get('CONTENT_TYPE', '')
-    headers['Content-Length'] = env.get('CONTENT_LENGTH', '')
+    if env.get('CONTENT_TYPE', None):
+        headers['Content-Type'] = env['CONTENT_TYPE']
+    if env.get('CONTENT_LENGTH', None):
+        headers['Content-Length'] = env['CONTENT_LENGTH']
     headers.pop('CONNECTION', None) # let RelayQuery choose to use keepalives or not
     body = env['wsgi.input']
     uri = env.get('PATH_INFO', '')
