@@ -70,7 +70,7 @@ class TestServer(unittest.TestCase):
 
         _, called_kwargs = fake_RelayQuery.call_args
         proxied_headers = called_kwargs['headers']
-        expected_headers = {'Content-Length': '', 'Content-Type': ''}
+        expected_headers = {}
 
         self.assertEqual(proxied_headers, expected_headers)
 
@@ -84,7 +84,21 @@ class TestServer(unittest.TestCase):
 
         _, called_kwargs = fake_RelayQuery.call_args
         proxied_headers = called_kwargs['headers']
-        expected_headers = {'Content-Length': '', 'Content-Type': '', 'X-CUSTOM-HEADER': 'woot'}
+        expected_headers = {'X-CUSTOM-HEADER': 'woot'}
+
+        self.assertEqual(proxied_headers, expected_headers)
+
+    def test_content_headers(self, fake_RelayQuery):
+        """``application`` sends Content-Type and Content-Lenght headers when they exist"""
+        self.env['CONTENT_TYPE'] = 'application/json'
+        self.env['CONTENT_LENGTH'] = 50
+        fake_start_response = MagicMock()
+
+        vlab_api_gateway.server.application(self.env, fake_start_response)
+
+        _, called_kwargs = fake_RelayQuery.call_args
+        proxied_headers = called_kwargs['headers']
+        expected_headers = {'Content-Type': 'application/json', 'Content-Length': 50}
 
         self.assertEqual(proxied_headers, expected_headers)
 
