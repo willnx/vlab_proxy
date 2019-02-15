@@ -6,10 +6,7 @@ from http.client import HTTPConnection
 
 from vlab_api_gateway import router
 from vlab_api_gateway.relay import RelayQuery
-from vlab_api_gateway.std_logger import get_logger
 
-
-logger = get_logger(__name__)
 
 def application(env, start_response):
     """The callable function per the WSGI spec; PEP 333"""
