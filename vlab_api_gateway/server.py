@@ -22,6 +22,8 @@ def application(env, start_response):
         # Some WSGI servers use RAW_URI instead of PATH_INFO.
         # Gunicorn uses PATH_INFO, gevent.pywsgi.WSGIServer uses RAW_URI
         uri=env.get('RAW_URI', '')
+    if env.get('QUERY_STRING', None):
+        uri += '?{}'.format(env['QUERY_STRING'])
     token = env.get('HTTP_X_AUTH', '').encode()
     host, tls, port = router.get_host(uri=uri, token=token)
     resp = RelayQuery(host=host,
