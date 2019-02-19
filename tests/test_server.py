@@ -117,7 +117,7 @@ class TestServer(unittest.TestCase):
         self.assertEqual(called_token, self.env['HTTP_X_AUTH'].encode())
 
     def test_passes_port(self, fake_RelayQuery):
-        """``application`` pases the correct port to RelayQuery"""
+        """``application`` passes the correct port to RelayQuery"""
         self.env['PATH_INFO'] = '/'
         fake_start_response = MagicMock()
 
@@ -128,6 +128,20 @@ class TestServer(unittest.TestCase):
         port_expected = 80
 
         self.assertEqual(port_used, port_expected)
+
+    def test_passes_query_params(self, fake_RelayQuery):
+        """``application`` passes all query params that are supplied"""
+        self.env['QUERY_STRING'] = 'foo=true'
+        self.env['PATH_INFO'] = '/api/1/ipam'
+        fake_start_response = MagicMock()
+
+        vlab_api_gateway.server.application(self.env, fake_start_response)
+
+        _, called_kwargs = fake_RelayQuery.call_args
+        uri_used = called_kwargs['uri']
+        uri_expected = '/api/1/ipam?foo=true'
+
+        self.assertEqual(uri_used, uri_expected)
 
 
 if __name__ == '__main__':
