@@ -97,6 +97,35 @@ class TestIpam(unittest.TestCase):
 
         self.assertEqual(result, expected)
 
+class TestConstants(unittest.TestCase):
+    """a suite of test cases for the router module constants"""
+
+    def test_known_hosts(self):
+        """``SERVICE_MAP`` contains the expected set of service hosts"""
+        known_hosts = set(router.SERVICE_MAP.keys())
+        expected_hosts = set(['icap', 'centos', 'claritynow', 'router', 'gateway', 'insightiq', 'power', 'docs', 'onefs', 'windows', 'link', 'ecs', 'esrs', 'ipam', 'vlan', 'auth', 'cee', 'inventory', 'winserver'])
+
+        self.assertEqual(known_hosts, expected_hosts)
+
+    def test_service_index(self):
+        """``SERVICE`` is the expected index into the API namespace"""
+        expected_index = 3
+
+        self.assertEqual(router.SERVICE, expected_index)
+
+    def test_service_subgroup_index(self):
+        """``SERVICE_SUBGROUP`` is the expected index into the API namespace"""
+        expected_index = 4
+
+        self.assertEqual(router.SERVICE_SUBGROUP, expected_index)
+
+    def test_no_record(self):
+        """``NO_RECORD`` is the expected tuple"""
+        expected_tuple = (None, False, 0)
+
+        self.assertEqual(router.NO_RECORD, expected_tuple)
+
+
 
 if __name__ == '__main__':
     unittest.main()
