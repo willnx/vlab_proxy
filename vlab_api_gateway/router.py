@@ -27,6 +27,7 @@ SERVICE_MAP = {
     'centos'     : ('centos-api', False, 5000),
     'icap'       : ('icap-api', False, 5000),
     'claritynow' : ('claritynow-api', False, 5000),
+    'ecs'        : ('ecs-api', False, 5000),
     'ipam'       : ('UNKNOWN', True, 443),
     'docs'       : ('docs', False, 80),
 }
