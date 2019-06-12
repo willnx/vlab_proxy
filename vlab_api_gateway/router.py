@@ -30,6 +30,7 @@ SERVICE_MAP = {
     'ecs'        : ('ecs-api', False, 5000),
     'ipam'       : ('UNKNOWN', True, 443),
     'docs'       : ('docs', False, 80),
+    'snapshot'   : ('snapshot-api', False, 5000),
 }
 SERVICE = 3
 SERVICE_SUBGROUP = 4
