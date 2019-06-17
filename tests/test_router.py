@@ -103,7 +103,11 @@ class TestConstants(unittest.TestCase):
     def test_known_hosts(self):
         """``SERVICE_MAP`` contains the expected set of service hosts"""
         known_hosts = set(router.SERVICE_MAP.keys())
-        expected_hosts = set(['snapshot', 'icap', 'centos', 'claritynow', 'router', 'gateway', 'insightiq', 'power', 'docs', 'onefs', 'windows', 'link', 'ecs', 'esrs', 'ipam', 'vlan', 'auth', 'cee', 'inventory', 'winserver'])
+        expected_hosts = set(['snapshot', 'icap', 'centos', 'claritynow',
+                              'router', 'gateway', 'insightiq', 'power', 'docs',
+                              'onefs', 'windows', 'link', 'ecs', 'esrs', 'ipam',
+                              'vlan', 'auth', 'cee', 'inventory', 'winserver',
+                              'esxi'])
 
         self.assertEqual(known_hosts, expected_hosts)
 
