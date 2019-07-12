@@ -143,6 +143,22 @@ class TestServer(unittest.TestCase):
 
         self.assertEqual(uri_used, uri_expected)
 
+    @patch.object(vlab_api_gateway.server.router, 'get_host')
+    def test_no_mangle_host(self, fake_get_host, fake_RelayQuery):
+        """``application`` doesn't mangle how 'router' identifies a host"""
+        self.env['QUERY_STRING'] = 'foo=true'
+        self.env['PATH_INFO'] = '/api/1/ipam'
+        fake_start_response = MagicMock()
+        fake_get_host.return_value = (1,2,3)
+
+        vlab_api_gateway.server.application(self.env, fake_start_response)
+
+        _, the_kwargs = fake_get_host.call_args
+        sent_uri = the_kwargs['uri']
+        expected = '/api/1/ipam'
+
+        self.assertEqual(sent_uri, expected)
+
 
 if __name__ == '__main__':
     unittest.main()
