@@ -32,6 +32,7 @@ SERVICE_MAP = {
     'docs'       : ('docs', False, 80),
     'snapshot'   : ('snapshot-api', False, 5000),
     'esxi'       : ('esxi-api', False, 5000),
+    'quota'      : ('quota-api', False, 5000),
 }
 SERVICE = 3
 SERVICE_SUBGROUP = 4
