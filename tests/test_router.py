@@ -107,7 +107,7 @@ class TestConstants(unittest.TestCase):
                               'router', 'gateway', 'insightiq', 'power', 'docs',
                               'onefs', 'windows', 'link', 'ecs', 'esrs', 'ipam',
                               'vlan', 'auth', 'cee', 'inventory', 'winserver',
-                              'esxi', 'quota'])
+                              'esxi', 'quota', 'dataiq'])
 
         self.assertEqual(known_hosts, expected_hosts)
 
