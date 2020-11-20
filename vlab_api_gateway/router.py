@@ -10,7 +10,7 @@ from vlab_api_gateway.constants import const
 logger = get_logger(__name__)
 
 SERVICE_MAP = {
-# API Resource : (API Host, TLS, Port)
+# API Resource   : (API Host,   TLS,   Port)
     'auth'       : ('auth-api', False, 5000),
     'link'       : ('link-api', False, 5000),
     'vlan'       : ('vlan-api', False, 5000),
@@ -35,6 +35,8 @@ SERVICE_MAP = {
     'quota'      : ('quota-api', False, 5000),
     'dataiq'     : ('dataiq-api', False, 5000),
     'dns'        : ('dns-api', False, 5000),
+    'deployment' : ('deployment-api', False, 5000),
+    'template'   : ('deployment-api', False, 5000),
 }
 SERVICE = 3
 SERVICE_SUBGROUP = 4
