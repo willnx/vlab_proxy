@@ -108,7 +108,7 @@ class TestConstants(unittest.TestCase):
                               'onefs', 'windows', 'link', 'ecs', 'esrs', 'ipam',
                               'vlan', 'auth', 'cee', 'inventory', 'winserver',
                               'esxi', 'quota', 'dataiq', 'dns', 'deployment',
-                              'template', 'avamar'])
+                              'template', 'avamar', 'data-domain'])
 
         self.assertEqual(known_hosts, expected_hosts)
 

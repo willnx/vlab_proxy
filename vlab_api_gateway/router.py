@@ -38,6 +38,7 @@ SERVICE_MAP = {
     'deployment' : ('deployment-api', False, 5000),
     'template'   : ('deployment-api', False, 5000),
     'avamar'     : ('avamar-api', False, 5000),
+    'data-domain': ('datadomain-api', False, 5000),
 }
 SERVICE = 3
 SERVICE_SUBGROUP = 4
