@@ -39,6 +39,8 @@ SERVICE_MAP = {
     'template'   : ('deployment-api', False, 5000),
     'avamar'     : ('avamar-api', False, 5000),
     'data-domain': ('datadomain-api', False, 5000),
+    'superna'    : ('superna-api', False, 5000),
+    'kemp'       : ('kemp-api', False, 5000)
 }
 SERVICE = 3
 SERVICE_SUBGROUP = 4
