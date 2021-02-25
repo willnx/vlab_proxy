@@ -13,4 +13,4 @@ services:
     image:
       willnx/vlab-api-gateway
     volumes:
-      - ./vlab_api_gateway:/usr/lib/python3.6/site-packages/vlab_api_gateway
+      - ./vlab_api_gateway:/usr/lib/python3.8/site-packages/vlab_api_gateway
